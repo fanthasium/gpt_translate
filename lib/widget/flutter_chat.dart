@@ -5,7 +5,8 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class FlutterChat extends StatelessWidget {
   final bool isCurrentUser;
-  FlutterChat({required this.isCurrentUser });
+
+  FlutterChat({super.key, required this.isCurrentUser });
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class ChatPageState extends State<ChatPage> {
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Text(
-              'hi',
+              'helllo',
               style: Theme.of(context).textTheme.bodyText1!.copyWith(
                   color: isCurrentUser ? Colors.white : Colors.black87),
             ),

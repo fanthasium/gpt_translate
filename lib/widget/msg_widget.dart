@@ -1,21 +1,37 @@
 
 import 'package:flutter/material.dart';
 
-import '../repositiory/http_repository.dart';
+
 import '../viewmodel/http_viewmodel.dart';
 
-class MassageWidget extends StatelessWidget{
-  final TextEditingController _controller = TextEditingController();
-  final FocusNode _focusNode = FocusNode();
-  final HttpViewModel httpViewModel = HttpViewModel(repository: HttpRepository());
 
-  MassageWidget({super.key});
+class Message extends StatefulWidget{
+  const Message({super.key});
+
+  @override
+  MassageTxtField createState() => MassageTxtField();
+}
+
+class MassageTxtField extends State<Message> {
+  final FocusNode _focusNode = FocusNode();
+  final TextEditingController _controller = TextEditingController();
+  final HttpViewModel httpViewModel = HttpViewModel();
+
+
+  //매ㅐㅐㅐㅐㅐ우 중요!
+  @override
+  void initState() {
+    super.initState();
+
+    _focusNode.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-
     return TextField(
-        focusNode: _focusNode,
+        focusNode: _focusNode ,
         maxLines: null,
         textAlignVertical: TextAlignVertical.center,
         textInputAction: TextInputAction.next,
@@ -44,11 +60,9 @@ class MassageWidget extends StatelessWidget{
         style: const TextStyle(fontSize: 15, color: Colors.white),
         controller: _controller,
         onSubmitted: (value) {
-          String prompt = value;
-          httpViewModel.generateText(prompt);
+          httpViewModel.generateText(value);
           _controller.clear();
         },
       );
-
   }
 }

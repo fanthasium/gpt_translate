@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:gpt_translate/widget/flutter_chat.dart';
 import 'package:gpt_translate/widget/msg_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 
@@ -13,6 +15,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return const MaterialApp(
       home: FirstPage(),
     );
@@ -43,9 +46,8 @@ class _FirstPageState extends State<FirstPage> {
                   fontWeight: FontWeight.w700, color: Color(0xFF12a27f)),
             ),
           ),
-
-          Expanded(child:  MassageWidget()),
-
+           FlutterChat(isCurrentUser: false),
+           Message()
         ],
       ),
     );
