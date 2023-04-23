@@ -3,7 +3,7 @@ import 'package:gpt_translate/shared_pref.dart';
 import 'package:http/http.dart' as http;
 
 
-const apiKey = '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';
+const apiKey = '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';
 const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
 class HttpModule {
@@ -15,34 +15,32 @@ class HttpModule {
   final SharedPreferencesUtils _prefs = SharedPreferencesUtils.instance;
 
   Future<Map<String, dynamic>> post(String prompt) async {
-    await SharedPreferencesUtils.instance.init();
+
+    print("previous txt ${_prefs.getString(key: 'ASSISTANT_MSG')}");
 
 
-    // 이전 대화를 저장하는 리스트
-    final previousSentences = <String>[];
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $apiKey'
+      },
+      body: jsonEncode({
+        "model": "gpt-3.5-turbo",
+        "messages": [
+          {"role": "user", "content": prompt},
+          {"role": "assistant", "content":"${ _prefs.getString(key:'ASSISTANT_MSG')}"},
+          {"role": "system", "content": "너는 지금부터 베트남어는 한국어로 답을 해줘야해"}
+        ],
+        'max_tokens': 1000,
+        'temperature': 0.95,
+        'top_p': 0.9,
+        'frequency_penalty': 0.5,
+        'presence_penalty': 0.5
+      }),
+    );
 
-      final response = await http.post(
-        Uri.parse(apiUrl),
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer $apiKey'
-        },
-        body: jsonEncode({
-          "model": "gpt-3.5-turbo",
-          "messages": [
-            {"role": "user", "content": prompt},
-            {"role": "assistant", "content": _prefs.getString('ASSISTANT_MSG')},
-            // {"role": "system", "content": "now you are the translator"}
-          ],
-          'max_tokens': 1000,
-          'temperature': 0.5,
-          'top_p': 0.6,
-          'frequency_penalty': 0.5,
-          'presence_penalty': 0.7
-        }),
-      );
-
-      return jsonDecode(utf8.decode(response.bodyBytes));
-    }
+    return jsonDecode(utf8.decode(response.bodyBytes));
   }
+}
 
