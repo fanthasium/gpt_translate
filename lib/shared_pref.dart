@@ -14,11 +14,19 @@ class SharedPreferencesUtils {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  String? getString(String key) {
+  String? getString({required String key}) {
     return _prefs.getString(key);
   }
 
-  Future<bool> setString(String key, String value) {
+  List<String>? getStringList(String key) {
+    return _prefs.getStringList(key);
+  }
+
+  Future<bool> setString(String key, {String value = ""}) {
     return _prefs.setString(key, value);
+  }
+
+  Future<bool> setStringList(String key, List<String> value) {
+    return _prefs.setStringList(key, value);
   }
 }

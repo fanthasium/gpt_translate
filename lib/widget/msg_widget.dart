@@ -31,6 +31,9 @@ class MassageTxtField extends State<Message> {
   @override
   Widget build(BuildContext context) {
     return TextField(
+        onTap: () {
+          _focusNode;
+        },
         focusNode: _focusNode ,
         maxLines: null,
         textAlignVertical: TextAlignVertical.center,

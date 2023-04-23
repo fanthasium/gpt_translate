@@ -11,10 +11,9 @@ class HttpViewModel extends ChangeNotifier {
   Future<String> generateText(String prompt) async {
     await SharedPreferencesUtils.instance.init();
 
-    _prefs.setString('ASSISTANT_MSG', prompt);
-    print("a aaaa ${_prefs.getString('ASSISTANT_MSG')}");
-    print("a aaaa ${generateText}");
-    return await repository.responseText(prompt: prompt);
+    final responseText = await repository.responseText(prompt: prompt);
+    await _prefs.setString('ASSISTANT_MSG', value: responseText);
+    return  responseText;
   }
 
 
