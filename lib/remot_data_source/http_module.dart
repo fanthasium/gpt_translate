@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:gpt_translate/shared_pref.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
-const apiKey = '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';
-const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
 class HttpModule {
+  String? baseUrl = dotenv.env['API_URL'];
+  String? apiKey = dotenv.env['API_KEY'];
 
   HttpModule._internal();
   static final HttpModule _singleton = HttpModule._internal();
@@ -16,11 +16,11 @@ class HttpModule {
 
   Future<Map<String, dynamic>> post(String prompt) async {
 
-    print("previous txt ${_prefs.getString(key: 'ASSISTANT_MSG')}");
+    print("previous txt ${apiKey}");
 
 
     final response = await http.post(
-      Uri.parse(apiUrl),
+      Uri.parse(baseUrl!),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $apiKey'
@@ -28,9 +28,9 @@ class HttpModule {
       body: jsonEncode({
         "model": "gpt-3.5-turbo",
         "messages": [
-          {"role": "user", "content": prompt},
+          {"role": "system", "content": "너는 지금부터 계산기야"},
           {"role": "assistant", "content":"${ _prefs.getString(key:'ASSISTANT_MSG')}"},
-          {"role": "system", "content": "너는 지금부터 베트남어는 한국어로 답을 해줘야해"}
+          {"role": "user", "content": prompt},
         ],
         'max_tokens': 1000,
         'temperature': 0.95,
@@ -40,7 +40,8 @@ class HttpModule {
       }),
     );
 
+    print("HTTP STATUS: ${response.statusCode} ${response.body}");
+
     return jsonDecode(utf8.decode(response.bodyBytes));
   }
 }
-

@@ -3,11 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gpt_translate/widget/flutter_chat.dart';
 import 'package:gpt_translate/widget/msg_widget.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
+void main() async{
+  await dotenv.load(fileName: 'assets/.env');
+  runApp(const MainApp());
 
-void main() => runApp(const MainApp());
+}
 
 
 class MainApp extends StatelessWidget {
