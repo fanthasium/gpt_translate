@@ -1,4 +1,8 @@
 
+import 'dart:convert';
+
+import 'package:gpt_translate/dto/chat_data.dart';
+
 import '../remot_data_source/http_module.dart';
 
 class HttpRepository {
@@ -9,6 +13,7 @@ class HttpRepository {
     final response = await _httpModule.post(prompt);
 
     print("chat bot ${response['choices'][0]['message']['content']}");
+
     return await response['choices'][0]['message']['content'];
   }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:gpt_translate/widget/flutter_chat.dart';
 import 'package:gpt_translate/widget/msg_widget.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -49,8 +50,13 @@ class _FirstPageState extends State<FirstPage> {
                   fontWeight: FontWeight.w700, color: Color(0xFF12a27f)),
             ),
           ),
-           FlutterChat(isCurrentUser: false),
-           Message()
+           Expanded(
+             child: FlutterChat(isCurrentUser: false),
+           ),
+
+               Message(),
+
+
         ],
       ),
     );

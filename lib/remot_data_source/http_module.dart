@@ -7,17 +7,15 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class HttpModule {
   String? baseUrl = dotenv.env['API_URL'];
   String? apiKey = dotenv.env['API_KEY'];
+  final SharedPreferencesUtils _prefs = SharedPreferencesUtils.instance;
 
   HttpModule._internal();
   static final HttpModule _singleton = HttpModule._internal();
   factory HttpModule() => _singleton;
 
-  final SharedPreferencesUtils _prefs = SharedPreferencesUtils.instance;
 
   Future<Map<String, dynamic>> post(String prompt) async {
-
-    print("previous txt ${apiKey}");
-
+    await SharedPreferencesUtils.instance.init();
 
     final response = await http.post(
       Uri.parse(baseUrl!),
@@ -39,8 +37,6 @@ class HttpModule {
         'presence_penalty': 0.5
       }),
     );
-
-    print("HTTP STATUS: ${response.statusCode} ${response.body}");
 
     return jsonDecode(utf8.decode(response.bodyBytes));
   }

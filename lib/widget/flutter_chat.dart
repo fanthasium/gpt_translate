@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:gpt_translate/shared_pref.dart';
 
 class FlutterChat extends StatelessWidget {
   final bool isCurrentUser;
@@ -22,27 +20,30 @@ class ChatPage extends StatefulWidget {
 }
 
 class ChatPageState extends State<ChatPage> {
+  final SharedPreferencesUtils _pref = SharedPreferencesUtils.instance;
+  final List<String> chat = [];
 
   final bool isCurrentUser = true;
 
+
   @override
   Widget build(BuildContext context) {
+     SharedPreferencesUtils.instance.init();
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       child: Align(
         // align the child within the container
         alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
         child: DecoratedBox(
           // chat bubble decoration
           decoration: BoxDecoration(
-            color: isCurrentUser ? Colors.blue : Colors.grey[300],
+            color: isCurrentUser ? const Color(0xFF454553) : Colors.grey[300],
             borderRadius: BorderRadius.circular(16),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),
-            child: Text(
-              'helllo',
-              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+            child: Text( 'asasasdasdasd asd dd a 123d' ,
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                   color: isCurrentUser ? Colors.white : Colors.black87),
             ),
           ),
