@@ -3,8 +3,7 @@ import 'dart:convert';
 
 import 'package:gpt_translate/dto/chat_data.dart';
 
-import '../remot_data_source/http_module.dart';
-
+import '../http_module/http_module.dart';
 class HttpRepository {
   final HttpModule _httpModule = HttpModule();
 

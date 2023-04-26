@@ -36,27 +36,28 @@ class FirstPage extends StatefulWidget {
 class _FirstPageState extends State<FirstPage> {
 
   @override
+  void setState(VoidCallback fn) {
+    print("main");
+    super.setState(fn);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF323540),
+      appBar: AppBar(
+        backgroundColor: const Color(0xFF323540),
+        title: const Text(
+          'Enjoy :D',
+          style: TextStyle(
+              fontWeight: FontWeight.w700, color: Color(0xFF12a27f)),
+        ),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          AppBar(
-            backgroundColor: const Color(0xFF323540),
-            title: const Text(
-              'Enjoy :D',
-              style: TextStyle(
-                  fontWeight: FontWeight.w700, color: Color(0xFF12a27f)),
-            ),
-          ),
-           Expanded(
-             child: FlutterChat(isCurrentUser: false),
-           ),
+        children:  [
 
-               Message(),
-
-
+          Message(),
         ],
       ),
     );

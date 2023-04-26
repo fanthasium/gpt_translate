@@ -13,7 +13,6 @@ class HttpModule {
   static final HttpModule _singleton = HttpModule._internal();
   factory HttpModule() => _singleton;
 
-
   Future<Map<String, dynamic>> post(String prompt) async {
     await SharedPreferencesUtils.instance.init();
 
