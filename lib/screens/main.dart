@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:gpt_translate/widget/flutter_chat.dart';
+import 'package:gpt_translate/widget/gpt_chat.dart';
 import 'package:gpt_translate/widget/msg_widget.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -54,9 +54,7 @@ class _FirstPageState extends State<FirstPage> {
         ),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children:  [
-
+        children:  const [
           Message(),
         ],
       ),

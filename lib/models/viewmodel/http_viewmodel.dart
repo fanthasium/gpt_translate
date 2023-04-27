@@ -12,9 +12,9 @@ class HttpViewModel extends ChangeNotifier {
   Future<String> generateText(String prompt) async {
       final responseText = await repository.responseText(prompt: prompt);
 
-      await _prefs.setStringList("GPT_MSG", [""]);
       await _prefs.setString('ASSISTANT_MSG', value: responseText);
       await _prefs.setString('USER_MSG', value: prompt );
+
       return responseText;
     }
   }
