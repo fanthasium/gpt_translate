@@ -2,33 +2,38 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:gpt_translate/shared_pref.dart';
 
-/*class FlutterChat extends StatelessWidget {
-  final String? mes
-  sage;
+/*
+class FlutterChat extends StatelessWidget {
+
+  final String message;
   final bool divisionChat;
   const FlutterChat({super.key, required this.message, required this.divisionChat});
 
 
+
   @override
   Widget build(BuildContext context) {
-    return  ChatPage(message: message, divisionChat: divisionChat);
+    return  ChatPage(message: message, divisionChat: divisionChat,);
   }
 }
 
 class ChatPage extends StatefulWidget {
 
-  final String? message;
+
+  final String message;
   final bool divisionChat;
-  const ChatPage({super.key, required this.message, required this.divisionChat});
+  const ChatPage({super.key,  required this.message, required this.divisionChat});
+
 
   @override
-  State<ChatPage> createState() => ChatPageState();
-}*/
+  State<ChatPage> createState() => GptChat();
+}
+*/
 
 class GptChat extends StatelessWidget {
-  final String? message;
-  final bool divisionChat;
 
+  final String message;
+  final bool divisionChat;
   const GptChat({super.key, required this.message, required this.divisionChat});
 
   @override
@@ -47,27 +52,35 @@ class GptChat extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   child: divisionChat
                       ? Text(
-                      message!,
-                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white)
+                      message,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: Colors.white)
                   )
                       : AnimatedTextKit(
                     isRepeatingAnimation: false,
                     animatedTexts: [
-                    TypewriterAnimatedText(
-                        message!,
-                        textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color: Colors.black87),
-                        speed: const Duration(milliseconds: 70),
-                        cursor: ""
-                 )
-                  ],
+                      TypewriterAnimatedText(
+                          message,
+                          textStyle: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyLarge!
+                              .copyWith(
+                              color: Colors.black87),
+                          speed: const Duration(milliseconds: 70),
+                          cursor: ""
+                      )
+                    ],
 
                   )
-                ),
               ),
             ),
-      );
-
+          ),
+        );
+      }
   }
 
-}
+

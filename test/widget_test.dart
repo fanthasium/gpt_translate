@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:gpt_translate/screens/main.dart';
+import 'package:gpt_translate/screens/main_home.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

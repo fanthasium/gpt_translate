@@ -36,7 +36,7 @@ class HttpModule {
         'presence_penalty': 0.5
       }),
     );
-
+       print("error?? ${response.body}");
     return jsonDecode(utf8.decode(response.bodyBytes));
   }
 }
