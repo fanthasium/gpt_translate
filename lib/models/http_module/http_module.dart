@@ -25,7 +25,7 @@ class HttpModule {
       body: jsonEncode({
         "model": "gpt-3.5-turbo",
         "messages": [
-          {"role": "system", "content": "너는 지금부터 계산기야"},
+          {"role": "system", "content": "너는 지금부터 번역기야"},
           {"role": "assistant", "content":"${ _prefs.getString(key:'ASSISTANT_MSG')}"},
           {"role": "user", "content": prompt},
         ],

@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:gpt_translate/models/viewmodel/http_viewmodel.dart';
 import 'package:gpt_translate/screens/main_body.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:provider/provider.dart';
 
 
 void main() async{
@@ -17,8 +19,11 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return const MaterialApp(
-      home: Message(),
+    return MaterialApp(
+      home: ChangeNotifierProvider(
+        create: (BuildContext context) => HttpViewModel(),
+        child: Message(),
+      )
     );
   }
 }

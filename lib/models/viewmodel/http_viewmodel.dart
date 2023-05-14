@@ -14,7 +14,7 @@ class HttpViewModel extends ChangeNotifier {
 
       await _prefs.setString('ASSISTANT_MSG', value: responseText);
       await _prefs.setString('USER_MSG', value: prompt );
-
+      notifyListeners();
       return responseText;
     }
   }

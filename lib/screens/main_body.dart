@@ -1,6 +1,8 @@
 import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:gpt_translate/provider/message_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../models/viewmodel/http_viewmodel.dart';
 import '../widget/message_widget.dart';
@@ -15,7 +17,7 @@ class Message extends StatefulWidget {
 class MassageTxtField extends State<Message> {
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _controller = TextEditingController();
-  final HttpViewModel httpViewModel = HttpViewModel();
+  late HttpViewModel _httpViewModel;
   late String message;
   final List<Widget> chatWidget = [];
   late final AsyncMemoizer _memoizer = AsyncMemoizer();
@@ -38,8 +40,16 @@ class MassageTxtField extends State<Message> {
         duration: Duration(milliseconds: 200), curve: Curves.ease);
   }
 
+  void GptMsg() async{
+    chatWidget.add(GptChat(message: message, divisionChat: true));
+    chatWidget.add(GptChat(message: await _httpViewModel.generateText(_controller.text), divisionChat: false));
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+    _httpViewModel = Provider.of<HttpViewModel>(context);
     return Scaffold(
       backgroundColor: const Color(0xFF323540),
       appBar: AppBar(
@@ -58,18 +68,17 @@ class MassageTxtField extends State<Message> {
                 controller: _scrollController,
                 itemCount: chatWidget.length,
                 itemBuilder: (context, index) {
-                  print("asdasd");
 
                   return chatWidget[index];
                 }),
           ),
-          Expanded(
+        Expanded(
             flex: 1,
             child: FutureBuilder(
               future: question,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                
+
                   return Column(
                     children: [
                       Expanded(child: Container()),
@@ -122,15 +131,15 @@ class MassageTxtField extends State<Message> {
                       padding: EdgeInsets.all(25),
                       iconSize: 35,
                       splashColor: Colors.grey,
-                      splashRadius: _txt ? 0.1 : 27.0,
+                      splashRadius: _txt ? null : 27.0,
                       onPressed: _txt ? null : () {
-                        setState(() {
-                          question =
-                              httpViewModel.generateText(_controller.text);
+
+                          _httpViewModel.generateText(_controller.text);
                           message = _controller.text;
-                          chatWidget.add(GptChat(message: message, divisionChat: true));
+                          question = _httpViewModel.generateText(_controller.text);
+                          GptMsg();
                           _controller.clear();
-                        });
+
 
                             },
                       icon: Icon(Icons.send,
